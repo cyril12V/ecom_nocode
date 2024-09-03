@@ -4,14 +4,15 @@ require('dotenv').config();
 const apiURL = process.env.SWAGGER_API_URL || 'http://54.37.12.181:1337/api/sneakers'; 
 
 
-const getSneakersList = async () => {
+const getSneakersList = async (page = 1, pageSize = 25) => {
     try {
-        const response = await axios.get(`${apiURL}`);
+        const response = await axios.get(`${apiURL}?pagination[page]=${page}&pagination[pageSize]=${pageSize}`);
         return response.data;
     } catch (error) {
         console.error('Erreur lors de la récupération des sneakers :', error);
     }
 };
+
 
 const addSneaker = async (sneaker) => {
     try {
